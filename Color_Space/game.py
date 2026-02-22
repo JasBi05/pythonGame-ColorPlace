@@ -1,6 +1,6 @@
 import pygame
 
-class GameSplatoon:
+class GameLogic:
 
     def __init__(self):
 
@@ -15,3 +15,5 @@ class GameSplatoon:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
+
+    #add timer method
