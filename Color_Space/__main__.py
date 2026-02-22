@@ -7,5 +7,4 @@ class Game:
     def __init__(self):
         self.logic = GameLogic()
         self.logic.run()
-
 Game()
