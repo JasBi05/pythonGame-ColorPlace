@@ -17,7 +17,7 @@ class GameLogic:
         self.red_player = Player(self.screen, Player_Color.RED, self.board)
         self.blue_player = Player(self.screen, Player_Color.BLUE, self.board)
 
-        self.exampleItem = Item(self.screen,self.board)
+        self.exampleItem = Item(self.screen, self.board)
 
         self.running = True
 
@@ -44,7 +44,8 @@ class GameLogic:
             self.screen.blit(self.board, (0, 0))
             self.red_player.draw()
             self.blue_player.draw()
-            self.exampleItem.bomb_item()
+            self.exampleItem.random_item(self.red_player)
+            self.exampleItem.random_item(self.blue_player)
             self.draw_timer()
 
             pygame.display.flip()
