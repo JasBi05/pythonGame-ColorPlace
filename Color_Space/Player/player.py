@@ -5,28 +5,34 @@ from Color_Space.Player.color import Player_Color
 #Player needs:
     #speed, size and color
 class Player:
-    def __init__(self, screen, player_color):
+    def __init__(self, screen, player_color, board):
+        self.board = board
         self.screen = screen
+        self.score = 0
         self.player_color = player_color
 
         if self.player_color == Player_Color.RED:
-            self.color = "red"
+            self.color = (255, 0, 0)
             self.x = 10
             self.y = 10
 
         elif self.player_color == Player_Color.BLUE:
-            self.color = "blue"
+            self.color = (0, 0, 255)
             self.x = 685
             self.y = 590
 
-        self.speed = 0.3
+        self.speed = 5
         self.width = 50
         self.height = 50
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
 
     def draw(self):
-        pygame.draw.rect(self.screen, self.color, [self.x, self.y, self.width, self.height])
+        if self.player_color == Player_Color.BLUE:
+            pygame.draw.rect(self.screen, (0,0,130), (self.x, self.y, self.width, self.height), 5)
+
+        if self.player_color == Player_Color.RED:
+            pygame.draw.rect(self.screen, (130,0,0), (self.x, self.y, self.width, self.height), 5)
 
     def move(self):
         keys = pygame.key.get_pressed()
@@ -73,6 +79,6 @@ class Player:
             self.y = 0
 
         if moved:
-            pygame.draw.rect(self.screen, self.color,
+            pygame.draw.rect(self.board, self.color,
                              (self.x, self.y, self.width, self.height))
 
