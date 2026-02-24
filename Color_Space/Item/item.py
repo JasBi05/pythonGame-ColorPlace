@@ -1,51 +1,67 @@
 import pygame
 import random
-from Color_Space.Player.player import Player
-
-#item script
-
-#ideas:
-    #1. A bomb that destroys some colors. Also, yours!
-    #2. An Energy drink that makes you fast
-    #3. A carrot that makes you bigger than the other player (You can color more space)
-    #4. An item that makes you slow
+from threading import Timer
 
 class Item:
     def __init__(self, screen, board):
         self.screen = screen
         self.board = board
 
+    def random_item(self, player):
 
-    def bomb_item(self, player):
-        bomb = pygame.Rect(random.randint(0,700), random.randint(0,800), 25, 25)
+        items = [
+            self._bomb_effect,
+            self._make_player_fast,
+            self._make_player_bigger,
+            self._make_player_slow
+        ]
+
+        effect = random.choice(items)
+
+        delay = random.randint(5, 10)
+        Timer(delay, effect, args=(player,)).start()
+
+
+    def _bomb_effect(self, player):
+        bomb = pygame.Rect(random.randint(0, 700), random.randint(0, 800), 25, 25)
         pygame.draw.rect(player.screen, (0, 0, 0), bomb)
+        if bomb.colliderect(player.rect):
+            print(f"Bomb trifft {player.player_color}")
 
-    def make_player_fast(self, player):
+    def _make_player_fast(self, player):
         energy = pygame.Rect(random.randint(0, 700), random.randint(0, 800), 25, 25)
         pygame.draw.rect(player.screen, (0, 255, 0), energy)
-
         if energy.colliderect(player.rect):
             player.speed = 20
+            print(f"Player speed {player.speed}")
+            def reset_speed():
+                player.speed = 5
+                print(f"Player speed {player.speed}")
+            Timer(5, reset_speed).start()
 
-    def make_player_bigger(self, player):
+    def _make_player_bigger(self, player):
         carrot = pygame.Rect(random.randint(0, 700), random.randint(0, 800), 25, 25)
         pygame.draw.rect(player.screen, (255, 165, 0), carrot)
-
         if carrot.colliderect(player.rect):
+            print(f"Player speed {player.width}")
             player.width = 75
             player.height = 75
+            def reset_size():
+                self.width = 50
+                self.height = 50
+                print(f"Player width {player.speed}")
+            Timer(5, reset_size).start()
 
-    def make_player_slow(self, player):
+            print(f"Player speed {player.width}")
+
+    def _make_player_slow(self, player):
         snail = pygame.Rect(random.randint(0, 700), random.randint(0, 800), 25, 25)
         pygame.draw.rect(player.screen, (0, 0, 255), snail)
-
         if snail.colliderect(player.rect):
             player.speed = 3
+            print(f"Player speed {player.speed}")
+            def reset_speed():
+                player.speed = 5
+                print(f"Player speed {player.speed}")
 
-
-    def random_item(self, player):
-        methods = [self.bomb_item, self.make_player_fast,self.make_player_bigger, self.make_player_slow]
-
-        random_method = random.choice(methods)
-        random_method(player)
-
+            Timer(5, reset_speed).start()
