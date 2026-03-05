@@ -1,7 +1,8 @@
 import pygame
 from Color_Space.Player.color import Player_Color
 from Color_Space.Player.player import Player
-from Color_Space.Item.item import Item
+from Color_Space.Item.item_effect import ItemEffect
+from Color_Space.Item.item_manager import ItemManager
 
 
 class GameLogic:
@@ -17,13 +18,17 @@ class GameLogic:
         self.red_player = Player(self.screen, Player_Color.RED, self.board)
         self.blue_player = Player(self.screen, Player_Color.BLUE, self.board)
 
-        self.exampleItem = Item(self.screen, self.board)
-
         self.running = True
 
         self.counter = 10
         self.font = pygame.font.SysFont('Franklin Gothic', 100)
 
+        self.item_effect = ItemEffect(self.screen, self.board)
+        self.item_manager = ItemManager(
+            self.screen,
+            self.board.get_rect(),
+            self.item_effect
+        )
         self.timer_event = pygame.USEREVENT + 1
         pygame.time.set_timer(self.timer_event, 1000)
 
@@ -44,8 +49,8 @@ class GameLogic:
             self.screen.blit(self.board, (0, 0))
             self.red_player.draw()
             self.blue_player.draw()
-            self.exampleItem.random_item(self.red_player)
-            self.exampleItem.random_item(self.blue_player)
+            self.item_manager.update(self.red_player)
+            self.item_manager.update(self.blue_player)
             self.draw_timer()
 
             pygame.display.flip()
