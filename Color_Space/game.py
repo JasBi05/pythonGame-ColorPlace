@@ -51,6 +51,8 @@ class GameLogic:
             self.blue_player.draw()
             self.item_manager.update(self.red_player)
             self.item_manager.update(self.blue_player)
+            self.red_player.update_effect()
+            self.blue_player.update_effect()
             self.draw_timer()
 
             pygame.display.flip()

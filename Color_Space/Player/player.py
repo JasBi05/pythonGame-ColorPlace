@@ -6,6 +6,7 @@ from Color_Space.Player.color import Player_Color
     #speed, size and color
 class Player:
     def __init__(self, screen, player_color, board):
+
         self.board = board
         self.screen = screen
         self.score = 0
@@ -25,6 +26,10 @@ class Player:
         self.width = 50
         self.height = 50
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+
+        self.countdown_fast = 0
+        self.countdown_slow = 0
+        self.countdown_size = 0
 
 
     def draw(self):
@@ -82,3 +87,18 @@ class Player:
             pygame.draw.rect(self.board, self.color,
                              (self.x, self.y, self.width, self.height))
 
+    def update_effect(self):
+        now = pygame.time.get_ticks()
+
+        if self.countdown_fast != 0 and now >= self.countdown_fast:
+            self.speed = 5
+            self.countdown_fast = 0
+
+        if self.countdown_slow != 0 and now >= self.countdown_slow:
+            self.speed = 5
+            self.countdown_slow = 0
+
+        if self.countdown_size != 0 and now >= self.countdown_size:
+            self.width = 50
+            self.height = 50
+            self.countdown_size = 0

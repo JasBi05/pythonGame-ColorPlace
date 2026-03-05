@@ -1,24 +1,31 @@
 import pygame
 import random
 
+
 class ItemEffect:
     def __init__(self, screen, board):
         self.screen = screen
         self.board = board
 
+
     def _bomb_effect(self, player):
         pass
 
     def _make_player_fast(self, player):
-        pass
+        player.speed = 10
+        player.countdown_fast = pygame.time.get_ticks() + 5000
 
 
     def _make_player_bigger(self, player):
-        pass
+        player.width = 65
+        player.height = 65
+        player.countdown_size = pygame.time.get_ticks() + 5000
 
 
     def _make_player_slow(self, player):
-        pass
+        player.speed = 1
+        player.countdown_slow = pygame.time.get_ticks() + 5000
+
 
     def apply(self, player, item_type):
 
