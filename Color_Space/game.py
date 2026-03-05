@@ -55,6 +55,7 @@ class GameLogic:
             self.blue_player.update_effect()
             self.draw_timer()
 
+
             pygame.display.flip()
 
     def update_timer(self, event):

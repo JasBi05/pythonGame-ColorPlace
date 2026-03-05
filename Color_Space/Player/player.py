@@ -7,6 +7,7 @@ from Color_Space.Player.color import Player_Color
 class Player:
     def __init__(self, screen, player_color, board):
 
+        self.count = 0
         self.board = board
         self.screen = screen
         self.score = 0
@@ -86,6 +87,7 @@ class Player:
         if moved:
             pygame.draw.rect(self.board, self.color,
                              (self.x, self.y, self.width, self.height))
+            self.count += self.width * self.height
 
     def update_effect(self):
         now = pygame.time.get_ticks()

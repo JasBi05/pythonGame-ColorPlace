@@ -7,9 +7,15 @@ class ItemEffect:
         self.screen = screen
         self.board = board
 
-
     def _bomb_effect(self, player):
-        pass
+
+        w, h = 200, 200
+
+        area = pygame.Rect(0, 0, w, h)
+        area.center = player.rect.center
+
+        area.clamp_ip(player.board.get_rect())
+        pygame.draw.rect(player.board, (255, 255, 255), area)
 
     def _make_player_fast(self, player):
         player.speed = 10
